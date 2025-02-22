@@ -18,30 +18,46 @@ class AlephService
     {
         $this->baseUrl = config('services.aleph.base_url');
         $this->apiKey = config('services.aleph.api_key');
-        $this->subdomainUrl = config('services.aleph.subdomain_url');
     }
 
+
     /**
-     * Retorna un array con los nombres de las categorias CMDB.
+     * Retorna un array con los registros de las categorias de la API
+     * de Aleph, asociados a sus respectivos campos de la tabla CMDB.
      *
      * @return array
      */
-    public function getCategorias()
+    public function getCategories()
     {
-        return Http::withHeaders([
-            'Authorization' => 'Bearer ' . $this->apiKey,
-        ])->get("{$this->baseUrl}/API/get_categorias/")->json();
+        $response = Http::asForm()->post("{$this->baseUrl}/API/get_categorias/", [
+            'api_key' => $this->apiKey,
+        ]);
+
+        if ($response->successful()) {
+            $data = $response->json();
+            return collect($data['categorias'])->map(function ($categoria) {
+                return [
+                    'id' => $categoria['id'],
+                    'name' => $categoria['nombre'],
+                    'parent_id' => $categoria['categoria_padre_id'],
+                    'code' => $categoria['codigo'],
+                    'cmdb_fields' => $categoria['campos_cmdb'] ?? []
+                ];
+            });
+        }
+
+        return [];
     }
 
     /**
-     * Retorna un array con los registros de la categoria CMDB especificada.
+     * Retorna un array con los registros de la category CMDB especificada.
      *
-     * @param int $categoriaId Identificador de la categoria CMDB.
+     * @param int $categoryId Identificador de la category CMDB.
      * @return array
      */
-    public function getRegistrosCMDB($categoriaId)
+    public function getRegistrosCMDB($categoryId)
     {
-        $url = "{$this->subdomainUrl}/API/get_cmdb/?categoria_id={$categoriaId}";
+        $url = "{$this->baseUrl}/API/get_cmdb/?category_id={$categoryId}";
 
         return Http::withHeaders([
             'Authorization' => 'Bearer ' . $this->apiKey,

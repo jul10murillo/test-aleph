@@ -14,9 +14,9 @@ class ShowController extends Controller
         $this->cmdbRepository = $cmdbRepository;
     }
 
-    public function __invoke($categoriaId)
+    public function __invoke($categoryId)
     {
-        $registros = $this->cmdbRepository->getByCategoriaId($categoriaId);
-        return view('cmdb.index', compact('registros', 'categoriaId'));
+        $registros = $this->cmdbRepository->getBycategoryId($categoryId);
+        return view('cmdb.index', compact('registros', 'categoryId'));
     }
 }

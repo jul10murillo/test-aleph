@@ -14,8 +14,8 @@ class ExportController extends Controller
         $this->cmdbRepository = $cmdbRepository;
     }
 
-    public function __invoke($categoriaId)
+    public function __invoke($categoryId)
     {
-        return $this->cmdbRepository->export($categoriaId);
+        return $this->cmdbRepository->export($categoryId);
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Interfaces;
 
-interface CategoriaRepositoryInterface
+interface CategoryRepositoryInterface
 {
     public function getAll();
 }

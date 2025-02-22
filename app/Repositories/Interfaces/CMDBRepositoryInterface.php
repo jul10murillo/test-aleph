@@ -4,7 +4,8 @@ namespace App\Repositories\Interfaces;
 
 interface CMDBRepositoryInterface
 {
-    public function getByCategoriaId($categoriaId);
-    public function export($categoriaId);
+    public function getBycategoryId($categoryId);
+    public function store(array $data);
+    public function export($categoryId);
     public function import($file);
 }

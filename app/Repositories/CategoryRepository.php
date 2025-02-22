@@ -1,10 +1,10 @@
 <?php
 namespace App\Repositories;
 
-use App\Repositories\Interfaces\CategoriaRepositoryInterface;
+use App\Repositories\Interfaces\CategoryRepositoryInterface;
 use App\Services\AlephService;
 
-class CategoriaRepository implements CategoriaRepositoryInterface
+class CategoryRepository implements CategoryRepositoryInterface
 {
     protected $alephService;
 
@@ -15,6 +15,6 @@ class CategoriaRepository implements CategoriaRepositoryInterface
 
     public function getAll()
     {
-        return $this->alephService->getCategorias();
+        return $this->alephService->getCategories();
     }
 }

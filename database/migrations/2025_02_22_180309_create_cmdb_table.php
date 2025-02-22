@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('cmdb', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('categoria_id'); // ID de la categoría proveniente de la API
+            $table->unsignedBigInteger('category_id'); // ID de la categoría proveniente de la API
             $table->string('identificador'); // Identificador único del registro
             $table->string('nombre'); // Nombre del registro
             $table->json('extra_data')->nullable(); // Campos dinámicos por categoría
