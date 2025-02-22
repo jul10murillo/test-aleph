@@ -34,5 +34,9 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
-
+    'aleph' => [
+        'base_url' => env('ALEPH_API_URL'),
+        'api_key'  => env('ALEPH_API_KEY'),
+        'subdomain_url' => env('ALEPH_SUBDOMAIN_URL'),
+    ],
 ];
