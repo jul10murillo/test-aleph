@@ -10,7 +10,12 @@ class CMDB extends Model
 
     protected $table = 'cmdb';
 
-    protected $fillable = ['category_id', 'identificador', 'nombre', 'extra_data'];
+    protected $fillable = [
+        'categoria_id',
+        'identificador',
+        'nombre',
+        'extra_data',
+    ];
 
     protected $casts = [
         'extra_data' => 'array',

@@ -18,8 +18,8 @@
         <tbody>
             @foreach($records as $record)
                 <tr>
-                    <td>{{ $record['identifier'] }}</td>
-                    <td>{{ $record['name'] }}</td>
+                    <td>{{ $record['identificador'] }}</td>
+                    <td>{{ $record['nombre'] }}</td>
                 </tr>
             @endforeach
         </tbody>

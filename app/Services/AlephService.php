@@ -2,6 +2,7 @@
 namespace App\Services;
 
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class AlephService
 {
@@ -55,12 +56,19 @@ class AlephService
      * @param int $categoryId Identificador de la category CMDB.
      * @return array
      */
-    public function getRegistrosCMDB($categoryId)
+    public function getRegistrosCMDB($categoriaId)
     {
-        $url = "{$this->baseUrl}/API/get_cmdb/?category_id={$categoryId}";
+        $response = Http::asForm()->post("{$this->baseUrl}/API/get_cmdb/", [
+            'api_key' => $this->apiKey,
+            'categoria_id' => $categoriaId
+        ]);
 
-        return Http::withHeaders([
-            'Authorization' => 'Bearer ' . $this->apiKey,
-        ])->get($url)->json();
+        Log::info("CMDB Response for category {$categoriaId}: " . json_encode($response->json()));
+
+        if ($response->successful()) {
+            return $response->json()['cmdb'] ?? [];
+        }
+
+        return [];
     }
 }

@@ -7,6 +7,8 @@ use App\Services\AlephService;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\CMDBExport;
 use App\Imports\CMDBImport;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Cache;
 
 class CMDBRepository implements CMDBRepositoryInterface
 {
@@ -20,23 +22,36 @@ class CMDBRepository implements CMDBRepositoryInterface
     /**
      * Obtener registros CMDB de la API y guardarlos en la base de datos.
      */
-    public function getBycategoryId($categoryId)
+    public function getByCategoryId($categoriaId)
     {
-        $registrosAPI = $this->alephService->getRegistrosCMDB($categoryId);
-
-        // Guardar en la base de datos si no existen
-        foreach ($registrosAPI as $registro) {
-            CMDB::updateOrCreate(
-                ['identificador' => $registro['identificador']],
-                [
-                    'category_id' => $categoryId,
-                    'nombre' => $registro['nombre'],
-                    'extra_data' => isset($registro['extra_data']) ? json_encode($registro['extra_data']) : null,
-                ]
-            );
-        }
-
-        return CMDB::where('category_id', $categoryId)->get();
+        return Cache::remember("cmdb_records_{$categoriaId}", now()->addMinutes(10), function () use ($categoriaId) {
+            try {
+                $registrosAPI = $this->alephService->getRegistrosCMDB($categoriaId);
+    
+                if (empty($registrosAPI)) {
+                    return [];
+                }
+    
+                foreach ($registrosAPI as $registro) {
+                    CMDB::updateOrCreate(
+                        ['identificador' => $registro['identificador']],
+                        [
+                            'categoria_id' => $categoriaId,
+                            'nombre' => $registro['nombre'],
+                            'extra_data' => json_encode([
+                                'fecha_creacion' => $registro['fecha_creacion'] ?? null,
+                                'activado' => $registro['activado'] ?? null
+                            ]),
+                        ]
+                    );
+                }
+    
+                return CMDB::where('categoria_id', $categoriaId)->get();
+            } catch (\Exception $e) {
+                Log::error("Error en getByCategoryId: " . $e->getMessage());
+                return [];
+            }
+        });
     }
 
     /**
