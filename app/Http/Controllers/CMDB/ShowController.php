@@ -26,7 +26,7 @@ class ShowController extends Controller
         $categoryName = collect($categories)->firstWhere('id', $categoryId)['name'] ?? 'Unknown';
 
         return view('cmdb.index', [
-            'records' => $records,
+            'records' => collect($records),
             'categoryId' => $categoryId,
             'categoryName' => $categoryName
         ]);

@@ -38,15 +38,21 @@ class CMDBRepository implements CMDBRepositoryInterface
                         [
                             'categoria_id' => $categoriaId,
                             'nombre' => $registro['nombre'],
-                            'extra_data' => json_encode([
+                            'extra_data' => [
                                 'fecha_creacion' => $registro['fecha_creacion'] ?? null,
                                 'activado' => $registro['activado'] ?? null
-                            ]),
+                            ],
                         ]
                     );
                 }
-    
-                return CMDB::where('categoria_id', $categoriaId)->get();
+
+                Cache::forget("cmdb_records_{$categoriaId}");
+                $records = CMDB::where('categoria_id', $categoriaId)->get();
+
+                return $records->map(function ($record) {
+                    $record->extra_data = is_array($record->extra_data) ? $record->extra_data : json_decode($record->extra_data, true);
+                    return $record;
+                });
             } catch (\Exception $e) {
                 Log::error("Error en getByCategoryId: " . $e->getMessage());
                 return [];
@@ -73,8 +79,8 @@ class CMDBRepository implements CMDBRepositoryInterface
     /**
      * Importar registros CMDB desde un archivo Excel.
      */
-    public function import($file)
+    public function import($file, $categoriaId)
     {
-        Excel::import(new CMDBImport, $file);
+        Excel::import(new CMDBImport($categoriaId), $file);
     }
 }
