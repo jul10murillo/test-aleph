@@ -2,30 +2,40 @@
 
 Este es un proyecto desarrollado en **Laravel 11** utilizando **Laravel Sail** para gestionar el entorno de desarrollo con **Docker**.
 
+Repositorio: [test-aleph](https://github.com/jul10murillo/test-aleph)
+
 ## 📁 Estructura del Proyecto
 
 El proyecto está compuesto por las siguientes partes:
 
 ### **Backend** (Laravel 11)
-- Implementación de API RESTful.
-- Autenticación con Sanctum.
-- Gestión de usuarios y roles.
-- Base de datos MySQL con migraciones y seeders.
-- Caché con Redis.
+- Implementación de una **API RESTful** siguiendo el patrón **MVC (Model-View-Controller)**.
+- Autenticación y control de acceso con **Laravel Sanctum**.
+- Gestión de usuarios y roles basada en el patrón **Repository** para separación de lógica.
+- Uso de **Eloquent ORM** para la gestión eficiente de la base de datos.
+- Aplicación del patrón **Service Layer** para encapsular lógica de negocio en clases de servicio.
+- Implementación de **Jobs y Queues** con Redis para tareas en segundo plano.
 
 ### **Frontend** (Vue.js o Blade Templates)
-- Interfaz de usuario para la gestión de datos.
-- Consumo de la API REST.
-- Formularios con validaciones.
+- Desarrollo basado en el patrón **SPA (Single Page Application)** con Vue.js.
+- Uso de **Blade Templates** en combinación con Vue.js para optimizar el rendimiento.
+- Consumo de la API REST mediante **Axios**.
+- Aplicación del patrón **Component-Based Architecture**, reutilizando componentes en Vue.js.
+- Manejo del estado global con **Vuex o Pinia**.
 
 ### **Base de Datos** (MySQL)
-- Migraciones y modelos para estructurar la información.
-- Relaciones entre usuarios, roles y permisos.
-- Tablas optimizadas para consultas rápidas.
+- Diseño relacional basado en **Migraciones y Seeders**.
+- Aplicación del patrón **Repository** para abstracción de consultas.
+- Uso de **Eloquent ORM** con relaciones eficientes.
+- Implementación de **Soft Deletes** para manejo de eliminación lógica.
+- Normalización de datos con relaciones **1:N y N:M**.
 
 ### **Servicios Adicionales**
-- Manejo de colas de trabajo con Redis y Laravel Queues.
-- Sistema de logs y monitoreo.
+- Manejo de colas de trabajo con **Redis y Laravel Queues** para tareas asíncronas.
+- Cacheo de consultas con **Redis** siguiendo el patrón **Cache Aside**.
+- Sistema de logs y monitoreo con **Monolog y Laravel Telescope**.
+- Envío de correos electrónicos con **Mailtrap o SMTP** utilizando el patrón **Observer**.
+- Implementación de **Pruebas Unitarias y de Integración** con PHPUnit y Laravel Dusk.
 
 ## 🚀 Requisitos
 
@@ -36,8 +46,8 @@ Antes de comenzar, asegúrate de tener instalado:
 ## 📥 Clonar el Proyecto
 Para obtener una copia local del proyecto, ejecuta:
 ```bash
-git clone https://github.com/tu_usuario/tu_repositorio.git
-cd tu_repositorio
+git clone https://github.com/jul10murillo/test-aleph.git
+cd test-aleph
 ```
 
 ## ⚙️ Configuración Inicial
