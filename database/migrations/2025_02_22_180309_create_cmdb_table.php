@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('cmdb', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('categoria_id'); // Asegurar que esta columna existe
-            $table->string('identificador')->unique();
-            $table->string('nombre');
-            $table->json('extra_data')->nullable();
+            $table->unsignedBigInteger('categoria_id')->comments('ID de la categoría a la que pertenece el registro');
+            $table->string('identificador')->unique()->comments('Identificador del registro');
+            $table->string('nombre')->comments('Nombre del registro');
+            $table->json('extra_data')->nullable()->comments('Datos adicionales del registro');
             $table->timestamps();
         });
     }
