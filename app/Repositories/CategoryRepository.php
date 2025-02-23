@@ -13,6 +13,11 @@ class CategoryRepository implements CategoryRepositoryInterface
         $this->alephService = $alephService;
     }
 
+    /**
+     * Retrieves all categories from the API.
+     *
+     * @return array
+     */
     public function getAll()
     {
         return $this->alephService->getCategories();

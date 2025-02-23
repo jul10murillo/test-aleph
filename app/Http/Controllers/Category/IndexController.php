@@ -16,6 +16,15 @@ class IndexController extends Controller
         $this->categoryRepository = $categoryRepository;
     }
 
+    /**
+     * Handles the HTTP request for the categories.index route.
+     *
+     * Fetches all categories, paginates them and passes them to the
+     * categories.index view.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
     public function __invoke(Request $request)
     {
         $categories = collect($this->categoryRepository->getAll());

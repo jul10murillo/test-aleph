@@ -17,6 +17,12 @@ class ShowController extends Controller
     }
 
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @param  int  $categoryId
+     * @return \Illuminate\Http\Response
+     */
     public function __invoke($categoryId)
     {
         $records = $this->cmdbRepository->getByCategoryId($categoryId);

@@ -19,8 +19,15 @@ class CMDBRepository implements CMDBRepositoryInterface
         $this->alephService = $alephService;
     }
 
+
     /**
-     * Obtener registros CMDB de la API y guardarlos en la base de datos.
+     * Retrieves all records from the CMDB that belong to a specific category.
+     *
+     * The method uses caching to store the results for 10 minutes. If the cache is empty,
+     * it will fetch the records from the Aleph API and store them in the database.
+     *
+     * @param int $categoriaId The identifier of the category.
+     * @return array An array of records.
      */
     public function getByCategoryId($categoriaId)
     {
