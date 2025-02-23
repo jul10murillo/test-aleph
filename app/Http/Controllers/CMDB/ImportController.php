@@ -27,7 +27,6 @@ class ImportController extends Controller
             Cache::forget('cmdb_records_' . $request->categoria_id);
             return redirect()->back()->with('success', 'Registros importados correctamente.');
         } catch (QueryException $e) {
-            // 📌 Verifica si es un error de clave única
             if ($e->getCode() == 23000) {
                 return redirect()->back()->with('error', 'Algunos registros ya existen en la base de datos y no se importaron.');
             }

@@ -17,7 +17,7 @@ class CMDBExport implements FromCollection, WithHeadings
 
     public function collection()
     {
-        return CMDB::where('categoria_id', $this->categoryId) // Cambiar a 'categoria_id'
+        return CMDB::where('categoria_id', $this->categoryId)
             ->get(['id', 'identificador', 'nombre', 'extra_data'])
             ->map(function ($registro) {
                 return [

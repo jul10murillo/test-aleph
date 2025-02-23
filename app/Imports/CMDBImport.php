@@ -23,7 +23,7 @@ class CMDBImport implements ToModel, WithHeadingRow
 
         
         return new CMDB([
-            'categoria_id' => request()->input('categoria_id', 1), // Default 1 si no se pasa
+            'categoria_id' => request()->input('categoria_id', 1),
             'identificador' => $row['identificador'],
             'nombre' => $row['nombre'],
             'extra_data' => [

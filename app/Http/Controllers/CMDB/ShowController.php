@@ -21,7 +21,6 @@ class ShowController extends Controller
     {
         $records = $this->cmdbRepository->getByCategoryId($categoryId);
 
-        // Obtener el nombre de la categoría desde la API
         $categories = $this->categoryRepository->getAll();
         $categoryName = collect($categories)->firstWhere('id', $categoryId)['name'] ?? 'Unknown';
 

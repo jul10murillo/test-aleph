@@ -19,7 +19,7 @@ class CMDBTemplateExport implements FromArray, WithHeadings
     public function array(): array
     {
         return [
-            ['', '', '', ''] // Fila vacía como ejemplo
+            ['', '', '', '']
         ];
     }
 }

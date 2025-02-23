@@ -18,10 +18,9 @@ class IndexController extends Controller
 
     public function __invoke(Request $request)
     {
-        $categories = collect($this->categoryRepository->getAll()); // Convierte en colección
+        $categories = collect($this->categoryRepository->getAll());
 
-        // Configurar paginación manualmente
-        $perPage = 5; // Número de categorías por página
+        $perPage = 5;
         $currentPage = $request->query('page', 1);
         $pagedData = $categories->slice(($currentPage - 1) * $perPage, $perPage)->values();
 
